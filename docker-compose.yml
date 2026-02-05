@@ -1,0 +1,15 @@
+services:
+
+  apache1:
+    image: httpd:alpine
+    ports:
+      - "8081:80"
+    volumes:
+      - ./data/apache1/index.html:/usr/local/apache2/htdocs/index.html
+  
+  apache2:
+    image: httpd:alpine
+    ports:
+      - "8082:80"
+    volumes:
+      - ./data/apache2/index.html:/usr/local/apache2/htdocs/index.html

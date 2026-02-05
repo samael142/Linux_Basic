@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">	
+    <title>Apache Server 1</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            color: black;
+            text-align: center;
+            padding: 50px;
+        }
+        .server-card {
+            background: cadetblue;
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: inline-block;
+        }
+        h1 { margin-bottom: 20px; }
+        .highlight { 
+            color: black; 
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="server-card">
+        <h1>🛠️ Apache Server 1</h1>
+        <p><span class="highlight">Внутренний порт: 8081</span></p>
+        <p>Время ответа: <span id="timestamp"></span></p>
+    </div>
+    <script>
+        document.getElementById('timestamp').textContent = new Date().toLocaleTimeString();
+    </script>
+</body>
+</html>
