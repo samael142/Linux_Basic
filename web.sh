@@ -48,7 +48,7 @@ rm -f /etc/nginx/sites-enabled/default
 systemctl reload nginx
 docker compose up -d
 cp ./data/filebeat.yml /etc/filebeat
-sed -i "s/localhost:5400/${WEB}:5400/" /etc/filebeat/filebeat.yml
+sed -i "s/localhost:5400/${ELK}:5400/" /etc/filebeat/filebeat.yml
 systemctl restart filebeat.service
 
 
@@ -64,4 +64,7 @@ systemctl restart filebeat.service
 su - $SUDO_USER -c "scp ${SCRIPT_DIR}/prometheus_elk.sh ${REMOTE_USER}@${ELK}:/tmp/"
 su - $SUDO_USER -c "scp ${SCRIPT_DIR}/.env ${REMOTE_USER}@${ELK}:/tmp/"
 su - $SUDO_USER -c "scp ${SCRIPT_DIR}/soft/grafana_11.2.2_amd64.deb ${REMOTE_USER}@${ELK}:/tmp/"
+su - $SUDO_USER -c "scp ${SCRIPT_DIR}/soft/elasticsearch_8.17.1_amd64.deb ${REMOTE_USER}@${ELK}:/tmp/"
+su - $SUDO_USER -c "scp ${SCRIPT_DIR}/soft/kibana_8.17.1_amd64.deb ${REMOTE_USER}@${ELK}:/tmp/"
+su - $SUDO_USER -c "scp ${SCRIPT_DIR}/soft/logstash_8.17.1_amd64.deb ${REMOTE_USER}@${ELK}:/tmp/"
 su - $SUDO_USER -c "ssh ${REMOTE_USER}@${ELK} 'sudo bash /tmp/prometheus_elk.sh'"
