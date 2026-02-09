@@ -15,11 +15,11 @@ fi
 echo "Проверка доступности серверов..."
 
 # Проверяем каждый сервер
-su - $SUDO_USER -c "ssh -o ConnectTimeout=2 ${REMOTE_USER}@${DB_SOURCE} exit" || { echo "❌ DB_SOURCE недоступен"; exit 1; }
-su - $SUDO_USER -c "ssh -o ConnectTimeout=2 ${REMOTE_USER}@${DB_REPLICA} exit" || { echo "❌ DB_REPLICA недоступен"; exit 1; }
-# su - $SUDO_USER -c "ssh -o ConnectTimeout=2 ${REMOTE_USER}@${ELK} exit" || { echo "❌ ELK недоступен"; exit 1; }
+su - $SUDO_USER -c "ssh -o ConnectTimeout=2 ${REMOTE_USER}@${DB_SOURCE} exit" || { echo "DB_SOURCE недоступен"; exit 1; }
+su - $SUDO_USER -c "ssh -o ConnectTimeout=2 ${REMOTE_USER}@${DB_REPLICA} exit" || { echo "DB_REPLICA недоступен"; exit 1; }
+su - $SUDO_USER -c "ssh -o ConnectTimeout=2 ${REMOTE_USER}@${ELK} exit" || { echo "ELK недоступен"; exit 1; }
 
-echo "✅ Все серверы доступны"
+echo "Все серверы доступны"
 sleep 3
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -51,16 +51,15 @@ cp ./data/filebeat.yml /etc/filebeat
 sed -i "s/localhost:5400/${WEB}:5400/" /etc/filebeat/filebeat.yml
 systemctl restart filebeat.service
 
-exit 0
 
 
-su - $SUDO_USER -c "scp ${SCRIPT_DIR}/mysql_source.sh ${REMOTE_USER}@${DB_SOURCE}:/tmp/"
-su - $SUDO_USER -c "scp ${SCRIPT_DIR}/data/sak.sql ${REMOTE_USER}@${DB_SOURCE}:/tmp/"
-su - $SUDO_USER -c "ssh ${REMOTE_USER}@${DB_SOURCE} 'sudo bash /tmp/mysql_source.sh'"
+#su - $SUDO_USER -c "scp ${SCRIPT_DIR}/mysql_source.sh ${REMOTE_USER}@${DB_SOURCE}:/tmp/"
+#su - $SUDO_USER -c "scp ${SCRIPT_DIR}/data/sak.sql ${REMOTE_USER}@${DB_SOURCE}:/tmp/"
+#su - $SUDO_USER -c "ssh ${REMOTE_USER}@${DB_SOURCE} 'sudo bash /tmp/mysql_source.sh'"
 
-su - $SUDO_USER -c "scp ${SCRIPT_DIR}/mysql_replica.sh ${REMOTE_USER}@${DB_REPLICA}:/tmp/"
-su - $SUDO_USER -c "scp ${SCRIPT_DIR}/.env ${REMOTE_USER}@${DB_REPLICA}:/tmp/"
-su - $SUDO_USER -c "ssh ${REMOTE_USER}@${DB_REPLICA} 'sudo bash /tmp/mysql_replica.sh'"
+#su - $SUDO_USER -c "scp ${SCRIPT_DIR}/mysql_replica.sh ${REMOTE_USER}@${DB_REPLICA}:/tmp/"
+#su - $SUDO_USER -c "scp ${SCRIPT_DIR}/.env ${REMOTE_USER}@${DB_REPLICA}:/tmp/"
+#su - $SUDO_USER -c "ssh ${REMOTE_USER}@${DB_REPLICA} 'sudo bash /tmp/mysql_replica.sh'"
 
 su - $SUDO_USER -c "scp ${SCRIPT_DIR}/prometheus_elk.sh ${REMOTE_USER}@${ELK}:/tmp/"
 su - $SUDO_USER -c "scp ${SCRIPT_DIR}/.env ${REMOTE_USER}@${ELK}:/tmp/"
