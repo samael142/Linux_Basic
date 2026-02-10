@@ -6,24 +6,24 @@
     - Сервер системы мониторинга и логирования.
 2. На всех серверах создать одинакового пользователя с правами sudo.
 3. На всех серверах разрешить выполнение sudo без пароля:
-    echo "[USER] ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/[USER]
-    где [USER] это логин созданного в п.2 пользователя.
+    - echo "[USER] ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/[USER]
+    - где [USER] это логин созданного в п.2 пользователя.
 4. На Сервере Web приложений создать ключ:
-    ssh-keygen -t ed25519
+    - ssh-keygen -t ed25519
     - Установить ключ на все остальные сервера проекта
-    ssh-copy-id [USER]@[SERVER]
+    - ssh-copy-id [USER]@[SERVER]
     - Проверить ssh подключения
     ssh [USER]@[SERVER]
 5. СКлонировать данный репозиторий на Сервер Web приложений.
 6. в Папку soft положить установочные файлы:
-    elasticsearch_8.17.1_amd64.deb
-    filebeat_8.17.1_amd64.deb
-    kibana_8.17.1_amd64.deb
-    logstash_8.17.1_amd64.deb
-    grafana_11.2.2_amd64.deb
+    - elasticsearch_8.17.1_amd64.deb
+    - filebeat_8.17.1_amd64.deb
+    - kibana_8.17.1_amd64.deb
+    - logstash_8.17.1_amd64.deb
+    - grafana_11.2.2_amd64.deb
 7. В папку data положить архив БД и переименовать его в sak.sql
 8. Заполнить файл переменных .env. Указать IP адреса серверов и имя пользователя из п.2.
 9. Запустить скрипт web.sh от sudo:
-    sudo bash web.sh
+    - sudo bash web.sh
 10. Настроить Дашборды Grafana и Kibana.
     
