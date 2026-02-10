@@ -67,4 +67,8 @@ su - $SUDO_USER -c "scp ${SCRIPT_DIR}/soft/grafana_11.2.2_amd64.deb ${REMOTE_USE
 su - $SUDO_USER -c "scp ${SCRIPT_DIR}/soft/elasticsearch_8.17.1_amd64.deb ${REMOTE_USER}@${ELK}:/tmp/"
 su - $SUDO_USER -c "scp ${SCRIPT_DIR}/soft/kibana_8.17.1_amd64.deb ${REMOTE_USER}@${ELK}:/tmp/"
 su - $SUDO_USER -c "scp ${SCRIPT_DIR}/soft/logstash_8.17.1_amd64.deb ${REMOTE_USER}@${ELK}:/tmp/"
+su - $SUDO_USER -c "scp ${SCRIPT_DIR}/data/elasticsearch.yml ${REMOTE_USER}@${ELK}:/tmp/"
+su - $SUDO_USER -c "scp ${SCRIPT_DIR}/data/jvm.options ${REMOTE_USER}@${ELK}:/tmp/"
+su - $SUDO_USER -c "scp ${SCRIPT_DIR}/data/logstash-nginx-es.conf ${REMOTE_USER}@${ELK}:/tmp/"
+su - $SUDO_USER -c "scp ${SCRIPT_DIR}/data/kibana.yml ${REMOTE_USER}@${ELK}:/tmp/"
 su - $SUDO_USER -c "ssh ${REMOTE_USER}@${ELK} 'sudo bash /tmp/prometheus_elk.sh'"
