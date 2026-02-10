@@ -7,8 +7,12 @@ else
     exit 1
 fi
 
+
+cp /tmp/backup.sh /home/${REMOTE_USER}
+(crontab -l -u "${REMOTE_USER}" 2>/dev/null; echo "0 23 * * * bash /home/${REMOTE_USER}/backup.sh") | crontab -u "${REMOTE_USER}" -
 which prometheus-node-exporter || apt install -y prometheus-node-exporter
 which mysql || (apt update && apt install -y mysql-server)
+
 
 mysql <<EOF
 ALTER USER 'root'@'localhost' IDENTIFIED WITH 'caching_sha2_password' BY '1234567890';
