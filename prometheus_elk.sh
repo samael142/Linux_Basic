@@ -27,7 +27,7 @@ cat >> /etc/prometheus/prometheus.yml <<EOF
 EOF
 systemctl restart prometheus.service
 systemctl daemon-reload
-systemctl start grafana-server
+systemctl enable --now grafana-server
 
 which java || (apt update && apt install -y default-jdk)
 dpkg -l | grep elasticsearch || dpkg -i /tmp/elasticsearch_8.17.1_amd64.deb
@@ -38,8 +38,8 @@ systemctl daemon-reload
 systemctl enable --now elasticsearch.service
 dpkg -l | grep kibana || dpkg -i /tmp/kibana_8.17.1_amd64.deb
 cp /tmp/kibana.yml /etc/kibana/
-sudo systemctl daemon-reload
-sudo systemctl enable --now kibana.service
+systemctl daemon-reload
+systemctl enable --now kibana.service
 dpkg -l | grep logstash || dpkg -i /tmp/logstash_8.17.1_amd64.deb
 echo "path.config: /etc/logstash/conf.d" | tee -a /etc/logstash/logstash.yml
 cp /tmp/logstash-nginx-es.conf /etc/logstash/conf.d/
