@@ -1,5 +1,5 @@
 which prometheus-node-exporter || (apt update && apt install -y prometheus-node-exporter)
-which pormetheus || (apt update && apt install -y prometheus)
+which prometheus || (apt update && apt install -y prometheus)
 which grafana-cli || (apt install -y adduser libfontconfig1 musl  && sudo dpkg -i /tmp/grafana_11.2.2_amd64.deb)
 
 if [ -f /tmp/.env ]; then
